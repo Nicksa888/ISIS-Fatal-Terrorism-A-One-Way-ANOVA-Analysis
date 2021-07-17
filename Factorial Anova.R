@@ -101,7 +101,8 @@ dim(GTDDTS)
 #############################
 
 # The shapiro_test() test for normality, requires a sample size to be between 3 and 5000. There is the ad.test() to use with a different sample size. 
-# However, this only is suitable for one variable. Therefore, to reduce the sample size so it is between these parameters (3-5000 rows), ISIS as the highest named group, is chosen as the sample. The FG attack count is indicated in the table below
+# However, this only is suitable for one variable. Therefore, to reduce the sample size so it is between these parameters (3-5000 rows), ISIS as the highest named group, 
+# is chosen as the sample. The FG attack count is indicated in the table below
 
 Groups <- GTDDTS %>%
   count(Group, sort = T)
@@ -232,7 +233,8 @@ durbinWatsonTest(model)
 # >2 to 4 is negative autocorrelation.
 
 # From the output we can see that the test statistic is 1.973246 and the corresponding p-value is 0.204. The test statistic is between 0 and 2, 
-# which means there is positive autocorrelation. But, it is very close to two, so is very slight Since this p-value is bigger than 0.05, we can uphold the null hypothesis and conclude that the residuals in this regression model are not autocorrelated and therefore are independent.
+# which means there is positive autocorrelation. But, it is very close to two, so is very slight Since this p-value is bigger than 0.05, we can uphold the null hypothesis 
+# and conclude that the residuals in this regression model are not autocorrelated and therefore are independent.
 
 ############
 # Outliers #
@@ -244,7 +246,8 @@ ISIS %>%
   group_by(Attack_Type) %>%
   identify_outliers(Dead)
 
-# There are some extreme outliers, so this assumption has been violated. It's possible to keep the outliers in the data and perform a robust ANOVA test using the WRS2 package using the t1way() function, as follows:
+# There are some extreme outliers, so this assumption has been violated. It's possible to keep the outliers in the data and perform a robust ANOVA test using the WRS2 package 
+# using the t1way() function, as follows:
 
 t1way(Dead ~ Attack_Type, ISIS)
 
@@ -279,7 +282,8 @@ shapiro_test(residuals(model))
 # It is significant, with a p-value of  2.04e-81, so the assumption of normality has been violated
 
 # Check normality assumption by groups. Computing Shapiro-Wilk test for each Attack variable level. 
-# If the data is normally distributed, the p-value should be greater than 0.05. The output below indicates that hostage kidnap and other attack have particularly significant distributions that dont follow normal distribution
+# If the data is normally distributed, the p-value should be greater than 0.05. The output below indicates that hostage kidnap and other attack have particularly 
+# significant distributions that dont follow normal distribution
 
 ISIS %>% 
   group_by(Attack_Type) %>%
@@ -330,7 +334,8 @@ plot(model)
 TR <- ISIS %>% levene_test(Dead ~ Attack_Type)
 levene_test(ISIS, Dead ~ Attack)
 
-# From the output above, we can see that the p-value is 1.11e-21, which is significant. This means that, there is significant difference between variances across attack types. Therefore, we cant assume the homogeneity of variances in the different attack types.
+# From the output above, we can see that the p-value is 1.11e-21, which is significant. This means that, there is significant difference between variances across attack types. 
+# Therefore, we cant assume the homogeneity of variances in the different attack types.
 
 ### Bartlett test for homogeneity of variance ###
 
